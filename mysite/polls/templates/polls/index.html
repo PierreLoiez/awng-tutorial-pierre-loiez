@@ -1,5 +1,9 @@
 <!DOCTYPE HTML>
+
 <header>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     <title>Index</title>
 </header>
 {% if latest_question_list %}

@@ -14,7 +14,7 @@ from django.utils import timezone
 # Create your views here.
 
 def index(request):
-    latest_question_list = Question.objects.order_by("-pub_date")[:5]
+    latest_question_list = Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
     context = {
         "latest_question_list":latest_question_list
     }
@@ -60,6 +60,10 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+    
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
+    
     
 class ResultsView(generic.DetailView):
     model = Question
